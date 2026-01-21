@@ -15,7 +15,7 @@ class LaravelShopifyGraphServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('ShopifyGraph')
+            ->name('LaravelShopifyGraph')
             ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_migration_table_name_table');

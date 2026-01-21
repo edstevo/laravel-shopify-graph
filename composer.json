@@ -63,10 +63,10 @@
     "extra": {
         "laravel": {
             "providers": [
-              "LaravelShopifyGraphServiceProvider"
+                "EdStevo\\LaravelShopifyGraph\\LaravelShopifyGraphServiceProvider"
             ],
             "aliases": {
-                "LaravelShopifyGraph": "LaravelShopifyGraph"
+                "LaravelShopifyGraph": "EdStevo\\LaravelShopifyGraph\\Facades\\LaravelShopifyGraph"
             }
         }
     },
