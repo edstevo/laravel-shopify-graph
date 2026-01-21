@@ -133,12 +133,12 @@ function determineSeparator(string $path): string
 
 function replaceForWindows(): array
 {
-    return preg_split('/\\r\\n|\\r|\\n/', run('dir /S /B * | findstr /v /i .git\ | findstr /v /i .vendor\ | findstr /v /i '.basename(__FILE__).' | findstr /r /i /M /F:/ ":author :vendor :package VendorName skeleton migration_table_name vendor_name vendor_slug author@domain.com"'));
+    return preg_split('/\\r\\n|\\r|\\n/', run('dir /S /B * | findstr /v /i .git\ | findstr /v /i .vendor\ | findstr /v /i '.basename(__FILE__).' | findstr /r /i /M /F:/ ":author :vendor :package VendorName ShopifyGraph migration_table_name vendor_name vendor_slug author@domain.com"'));
 }
 
 function replaceForAllOtherOSes(): array
 {
-    return explode(PHP_EOL, run('grep -E -r -l -i ":author|:vendor|:package|VendorName|skeleton|migration_table_name|vendor_name|vendor_slug|author@domain.com" --exclude-dir=vendor ./* ./.github/* | grep -v '.basename(__FILE__)));
+    return explode(PHP_EOL, run('grep -E -r -l -i ":author|:vendor|:package|VendorName|ShopifyGraph|migration_table_name|vendor_name|vendor_slug|author@domain.com" --exclude-dir=vendor ./* ./.github/* | grep -v '.basename(__FILE__)));
 }
 
 function getGitHubApiEndpoint(string $endpoint): ?stdClass
@@ -313,20 +313,20 @@ foreach ($files as $file) {
         ':package_name' => $packageName,
         ':package_slug' => $packageSlug,
         ':package_slug_without_prefix' => $packageSlugWithoutPrefix,
-        'Skeleton' => $className,
-        'skeleton' => $packageSlug,
+        'ShopifyGraph' => $className,
+        'ShopifyGraph' => $packageSlug,
         'migration_table_name' => title_snake($packageSlug),
         'variable' => $variableName,
         ':package_description' => $description,
     ]);
 
     match (true) {
-        str_contains($file, determineSeparator('src/Skeleton.php')) => rename($file, determineSeparator('./src/'.$className.'.php')),
+        str_contains($file, determineSeparator('src/ShopifyGraph.php')) => rename($file, determineSeparator('./src/'.$className.'.php')),
         str_contains($file, determineSeparator('src/SkeletonServiceProvider.php')) => rename($file, determineSeparator('./src/'.$className.'ServiceProvider.php')),
-        str_contains($file, determineSeparator('src/Facades/Skeleton.php')) => rename($file, determineSeparator('./src/Facades/'.$className.'.php')),
+        str_contains($file, determineSeparator('src/Facades/ShopifyGraph.php')) => rename($file, determineSeparator('./src/Facades/'.$className.'.php')),
         str_contains($file, determineSeparator('src/Commands/SkeletonCommand.php')) => rename($file, determineSeparator('./src/Commands/'.$className.'Command.php')),
         str_contains($file, determineSeparator('database/migrations/create_skeleton_table.php.stub')) => rename($file, determineSeparator('./database/migrations/create_'.title_snake($packageSlugWithoutPrefix).'_table.php.stub')),
-        str_contains($file, determineSeparator('config/skeleton.php')) => rename($file, determineSeparator('./config/'.$packageSlugWithoutPrefix.'.php')),
+        str_contains($file, determineSeparator('config/ShopifyGraph.php')) => rename($file, determineSeparator('./config/'.$packageSlugWithoutPrefix.'.php')),
         str_contains($file, 'README.md') => remove_readme_paragraphs($file),
         default => [],
     };

@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "edstevo/laravel-shopify-graph",
+    "description": "A package for connecting to the Shopify Graph API",
     "keywords": [
-        ":vendor_name",
+        "edsteo",
         "laravel",
-        ":package_slug"
+        "laravel-shopify-graph"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/edstevo/laravel-shopify-graph",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Edward Stephendon",
+            "email": "edward.stephenson@me.com",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "EdStevo\\ShopifyGraph\\": "src/",
+            "EdStevo\\ShopifyGraph\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "EdStevo\\ShopifyGraph\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -63,10 +63,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+              "ShopifyGraphServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "ShopifyGraph": "ShopifyGraph"
             }
         }
     },
