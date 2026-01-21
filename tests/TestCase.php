@@ -2,9 +2,9 @@
 
 namespace EdStevo\ShopifyGraph\Tests;
 
+use EdStevo\ShopifyGraph\LaravelShopifyGraphServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use EdStevo\ShopifyGraph\LaravelShopifyGraphServiceProvider;
 
 class TestCase extends Orchestra
 {
