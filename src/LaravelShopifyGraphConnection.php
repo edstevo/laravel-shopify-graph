@@ -19,15 +19,9 @@ use Psr\Http\Message\ResponseInterface;
 
 class LaravelShopifyGraphConnection
 {
-
     /**
      * Send a GraphQL query to Shopify
      *
-     * @param string $shopUrl
-     * @param string $accessToken
-     * @param string $query
-     * @param array $variables
-     * @return array
      * @throws \Illuminate\Http\Client\ConnectionException
      */
     public function post(string $shopUrl, string $accessToken, string $query, array $variables = []): array
@@ -43,7 +37,7 @@ class LaravelShopifyGraphConnection
 
     private function constructClient(string $shopUrl, string $accessToken): PendingRequest
     {
-        return Http::baseUrl("https://{$shopUrl}/admin/api/" . config('laravel-shopify-graph.api_version'))
+        return Http::baseUrl("https://{$shopUrl}/admin/api/".config('laravel-shopify-graph.api_version'))
             ->withHeaders(['X-Shopify-Access-Token' => $accessToken])
             ->asJson()
             ->acceptJson()
