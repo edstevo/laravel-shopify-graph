@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'api_verson' => null,
+    'api_version' => null,
 ];

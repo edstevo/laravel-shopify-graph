@@ -5,7 +5,7 @@ namespace EdStevo\LaravelShopifyGraph;
 use EdStevo\LaravelShopifyGraph\Facades\LaravelShopifyGraph;
 use Illuminate\Support\Facades\Log;
 
-abstract class ShopifyGraphRequest
+abstract class LaravelShopifyGraphRequest
 {
     abstract public function query(): string;
 
