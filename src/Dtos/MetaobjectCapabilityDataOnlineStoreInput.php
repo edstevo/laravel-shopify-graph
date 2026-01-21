@@ -6,5 +6,5 @@ use Spatie\LaravelData\Data;
 
 class MetaobjectCapabilityDataOnlineStoreInput extends Data
 {
-    public string|null $templateSuffix;
+    public ?string $templateSuffix;
 }
