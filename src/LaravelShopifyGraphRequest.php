@@ -17,10 +17,11 @@ abstract class LaravelShopifyGraphRequest
     {
         try {
             $res = LaravelShopifyGraph::post($shop, $accessToken, $this->query(), $this->variables());
+
             return $this->transformResponse($res['data']);
         } catch (\Exception $e) {
-            Log::debug("Shopify Graph Error", [
-                'error' => $e->getMessage()
+            Log::debug('Shopify Graph Error', [
+                'error' => $e->getMessage(),
             ]);
 
             throw $e;
