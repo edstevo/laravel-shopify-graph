@@ -1,6 +1,6 @@
 <?php
 
-namespace EdStevo\ShopifyGraph\Exceptions;
+namespace EdStevo\LaravelShopifyGraph\Exceptions;
 
 class ShopifyRateLimitExceededException extends ShopifyException
 {

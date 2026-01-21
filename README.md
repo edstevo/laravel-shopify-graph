@@ -1,4 +1,4 @@
-# :package_description
+# Laravel Shopify Graph API Integration
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/:vendor_slug/:package_slug/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -29,40 +29,39 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
-php artisan migrate
+composer require edstevo/laravel-shopify-graph
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-config"
+php artisan vendor:publish --tag=":laravel-shopify-graph-config"
 ```
 
 This is the contents of the published config file:
 
 ```php
 return [
+    'api_verson' => null,
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag=":package_slug-views"
 ```
 
 ## Usage
 
 ```php
-$variable = new EdStevo\ShopifyGraph();
-echo $variable->echoPhrase('Hello, VendorName!');
+    LaravelShopifyGraph::post(
+        "your-shop.myshopify.com",
+        "access_token",
+        "query { shop { name } }",
+        [] // optional variables
+    )
+
+    app(\EdStevo\LaravelShopifyGraph\LaravelShopifyGraphConnection::class)->post(
+        "your-shop.myshopify.com",
+        "access_token",
+        "query { shop { name } }",
+        [] // optional variables
+    )
 ```
 
 ## Testing
@@ -77,17 +76,13 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+All contributions welcome within reason. I don't have a lot of time to maintain this package, so any help is appreciated.
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Edward Stephenson](https://github.com/edstevo)
 - [All Contributors](../../contributors)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT).

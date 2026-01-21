@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "EdStevo\\ShopifyGraph\\": "src/",
-            "EdStevo\\ShopifyGraph\\Database\\Factories\\": "database/factories/"
+            "EdStevo\\LaravelShopifyGraph\\": "src/",
+            "EdStevo\\LaravelShopifyGraph\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "EdStevo\\ShopifyGraph\\Tests\\": "tests/",
+            "EdStevo\\LaravelShopifyGraph\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -63,10 +63,10 @@
     "extra": {
         "laravel": {
             "providers": [
-              "ShopifyGraphServiceProvider"
+              "LaravelShopifyGraphServiceProvider"
             ],
             "aliases": {
-                "ShopifyGraph": "ShopifyGraph"
+                "LaravelShopifyGraph": "LaravelShopifyGraph"
             }
         }
     },

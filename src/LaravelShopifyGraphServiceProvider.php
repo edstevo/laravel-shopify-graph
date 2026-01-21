@@ -1,6 +1,6 @@
 <?php
 
-namespace EdStevo\ShopifyGraph;
+namespace EdStevo\LaravelShopifyGraph;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;

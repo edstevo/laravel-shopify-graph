@@ -1,14 +1,14 @@
 <?php
 
-namespace EdStevo\ShopifyGraph;
+namespace EdStevo\LaravelShopifyGraph;
 
-use EdStevo\ShopifyGraph\Exceptions\ShopifyException;
-use EdStevo\ShopifyGraph\Exceptions\ShopifyForbiddenException;
-use EdStevo\ShopifyGraph\Exceptions\ShopifyRateLimitExceededException;
-use EdStevo\ShopifyGraph\Exceptions\ShopifyServerErrorException;
-use EdStevo\ShopifyGraph\Exceptions\ShopifyServiceUnavailableException;
-use EdStevo\ShopifyGraph\Exceptions\ShopifyUnauthorizedException;
-use EdStevo\ShopifyGraph\Exceptions\ShopifyValidationException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyForbiddenException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyRateLimitExceededException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServerErrorException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServiceUnavailableException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyUnauthorizedException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyValidationException;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class LaravelShopifyGraph
+class LaravelShopifyGraphConnection
 {
 
     /**

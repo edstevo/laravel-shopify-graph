@@ -1,9 +1,9 @@
 <?php
 
-use EdStevo\ShopifyGraph\Exceptions\ShopifyRateLimitExceededException;
-use EdStevo\ShopifyGraph\Exceptions\ShopifyServerErrorException;
-use EdStevo\ShopifyGraph\Exceptions\ShopifyServiceUnavailableException;
-use EdStevo\ShopifyGraph\Exceptions\ShopifyValidationException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyRateLimitExceededException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServerErrorException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServiceUnavailableException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyValidationException;
 
 beforeEach(function () {
     \Illuminate\Support\Facades\Http::preventStrayRequests();
@@ -11,7 +11,7 @@ beforeEach(function () {
     $this->shopDomain = fake()->word . '.myshopify.com';
     $this->accessToken = \Illuminate\Support\Str::random();
 
-    $this->client = app(\EdStevo\ShopifyGraph\LaravelShopifyGraph::class);
+    $this->client = app(\EdStevo\LaravelShopifyGraph\LaravelShopifyGraphConnection::class);
 });
 
 it('should throw ShopifyRateLimitExceededException on 429', function () {
@@ -115,5 +115,5 @@ Request ID: 1b355a21-7117-44c5-8d8b-8948082f40a8 (include this in support reques
         ], 200),
     ]);
 
-    expect(fn() => $this->client->post($this->shopDomain, $this->accessToken, "query { shop { name } }"))->toThrow(\EdStevo\ShopifyGraph\Exceptions\ShopifyException::class);
+    expect(fn() => $this->client->post($this->shopDomain, $this->accessToken, "query { shop { name } }"))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyException::class);
 });
