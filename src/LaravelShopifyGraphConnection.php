@@ -65,7 +65,7 @@ class LaravelShopifyGraphConnection
                 $data = json_decode($response->getBody(), true);
 
                 if ($error = Arr::get($data, 'errors.0')) {
-                    $code = Arr::get($error,'extensions.code');
+                    $code = Arr::get($error, 'extensions.code');
                     $exception = new \Exception($error['message']);
 
                     if ($code) {
