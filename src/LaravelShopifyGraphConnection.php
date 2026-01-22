@@ -66,23 +66,25 @@ class LaravelShopifyGraphConnection
                 $data = json_decode($response->getBody(), true);
 
                 if ($error = Arr::get($data, 'errors.0')) {
-                    $code = $error['extensions']['code'];
+                    $code = Arr::get($error,'extensions.code');
                     $exception = new \Exception($error['message']);
 
-                    if ($code === 'THROTTLED' || $code === 'MAX_COST_EXCEEDED') {
-                        throw new ShopifyRateLimitExceededException($exception);
-                    }
+                    if ($code) {
+                        if ($code === 'THROTTLED' || $code === 'MAX_COST_EXCEEDED') {
+                            throw new ShopifyRateLimitExceededException($exception);
+                        }
 
-                    if ($code === 'ACCESS_DENIED') {
-                        throw new ShopifyForbiddenException($exception);
-                    }
+                        if ($code === 'ACCESS_DENIED') {
+                            throw new ShopifyForbiddenException($exception);
+                        }
 
-                    if ($code === 'SHOP_INACTIVE') {
-                        throw new ShopifyForbiddenException($exception);
-                    }
+                        if ($code === 'SHOP_INACTIVE') {
+                            throw new ShopifyForbiddenException($exception);
+                        }
 
-                    if ($code === 'INTERNAL_SERVER_ERROR') {
-                        throw new ShopifyServerErrorException($exception);
+                        if ($code === 'INTERNAL_SERVER_ERROR') {
+                            throw new ShopifyServerErrorException($exception);
+                        }
                     }
 
                     throw new ShopifyException($exception->getMessage(), 400, $exception);

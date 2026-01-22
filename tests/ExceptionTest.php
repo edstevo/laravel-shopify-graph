@@ -138,3 +138,18 @@ Request ID: 1b355a21-7117-44c5-8d8b-8948082f40a8 (include this in support reques
 
     expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyException::class);
 });
+
+it('should throw ShopifyException when no code present', function () {
+    \Illuminate\Support\Facades\Http::fake([
+        $this->shopDomain.'/*' => Http::response([
+            'errors' => [
+                [
+                    'message' => 'Variable $blog of type BlogUpdateInput! was provided invalid value for ...',
+                    'extensions' => [],
+                ],
+            ],
+        ], 200),
+    ]);
+
+    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyException::class);
+});
