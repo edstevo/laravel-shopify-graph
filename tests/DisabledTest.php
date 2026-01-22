@@ -10,7 +10,7 @@ beforeEach(function () {
 });
 
 it('should not send when disabled', function () {
-    config()->set('laravel-shopify-graph.enabled', 'false');
+    config()->set('shopify-graph.enabled', 'false');
 
     \Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response(['errors' => []], 429),
@@ -22,7 +22,7 @@ it('should not send when disabled', function () {
 });
 
 it('should send when not disabled', function () {
-    config()->set('laravel-shopify-graph.enabled', 'true');
+    config()->set('shopify-graph.enabled', 'true');
 
     \Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response(['errors' => []], 200),

@@ -27,7 +27,7 @@ class LaravelShopifyGraphConnection
      */
     public function post(string $shopUrl, string $accessToken, string $query, array $variables = []): array
     {
-        if (filter_var(config('laravel-shopify-graph.enabled'), FILTER_VALIDATE_BOOLEAN)) {
+        if (filter_var(config('shopify-graph.enabled'), FILTER_VALIDATE_BOOLEAN)) {
             return $this
                 ->constructClient($shopUrl, $accessToken)
                 ->post('/graphql.json', [
@@ -48,7 +48,7 @@ class LaravelShopifyGraphConnection
 
     private function constructClient(string $shopUrl, string $accessToken): PendingRequest
     {
-        return Http::baseUrl("https://{$shopUrl}/admin/api/".config('laravel-shopify-graph.api_version'))
+        return Http::baseUrl("https://{$shopUrl}/admin/api/".config('shopify-graph.api_version'))
             ->withHeaders(['X-Shopify-Access-Token' => $accessToken])
             ->asJson()
             ->acceptJson()
