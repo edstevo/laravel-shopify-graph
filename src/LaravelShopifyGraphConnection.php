@@ -14,6 +14,7 @@ use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Context;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -26,18 +27,28 @@ class LaravelShopifyGraphConnection
      */
     public function post(string $shopUrl, string $accessToken, string $query, array $variables = []): array
     {
-        return $this
-            ->constructClient($shopUrl, $accessToken)
-            ->post('/graphql.json', [
-                'query' => $query,
-                'variables' => empty($variables) ? null : $variables,
-            ])
-            ->json();
+        if (filter_var(config('laravel-shopify-graph.enabled'), FILTER_VALIDATE_BOOLEAN)) {
+            return $this
+                ->constructClient($shopUrl, $accessToken)
+                ->post('/graphql.json', [
+                    'query' => $query,
+                    'variables' => empty($variables) ? null : $variables,
+                ])
+                ->json();
+        }
+
+        Log::info("Shopify Graph is Disabled. Dumping Request.", [
+            'shop' => $shopUrl,
+            'query' => $query,
+            'variables' => $variables,
+        ]);
+
+        return [];
     }
 
     private function constructClient(string $shopUrl, string $accessToken): PendingRequest
     {
-        return Http::baseUrl("https://{$shopUrl}/admin/api/".config('laravel-shopify-graph.api_version'))
+        return Http::baseUrl("https://{$shopUrl}/admin/api/" . config('laravel-shopify-graph.api_version'))
             ->withHeaders(['X-Shopify-Access-Token' => $accessToken])
             ->asJson()
             ->acceptJson()
