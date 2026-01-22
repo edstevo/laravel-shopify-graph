@@ -74,7 +74,7 @@ class LaravelShopifyGraphConnection
                     }
 
                     if ($code === 'ACCESS_DENIED') {
-                        throw new ShopifyUnauthorizedException($exception);
+                        throw new ShopifyForbiddenException($exception);
                     }
 
                     if ($code === 'SHOP_INACTIVE') {
