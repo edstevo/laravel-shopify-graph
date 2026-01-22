@@ -2,7 +2,9 @@
 
 namespace EdStevo\LaravelShopifyGraph\Dtos;
 
-class ArticleImageInput
+use Spatie\LaravelData\Data;
+
+class ArticleImageInput extends Data
 {
     public ?string $altText = null;
 

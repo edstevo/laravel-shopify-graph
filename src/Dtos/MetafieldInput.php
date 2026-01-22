@@ -2,7 +2,9 @@
 
 namespace EdStevo\LaravelShopifyGraph\Dtos;
 
-class MetafieldInput
+use Spatie\LaravelData\Data;
+
+class MetafieldInput extends Data
 {
     /**
      * The unique ID of the metafield. Using owner_id, namespace, and key is preferred for creating and updating.

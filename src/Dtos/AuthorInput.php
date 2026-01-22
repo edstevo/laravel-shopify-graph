@@ -2,7 +2,9 @@
 
 namespace EdStevo\LaravelShopifyGraph\Dtos;
 
-class AuthorInput
+use Spatie\LaravelData\Data;
+
+class AuthorInput extends Data
 {
     /**
      * The author's full name.
