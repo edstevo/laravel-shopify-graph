@@ -12,6 +12,8 @@ beforeEach(function () {
     $this->accessToken = \Illuminate\Support\Str::random();
 
     $this->client = app(\EdStevo\LaravelShopifyGraph\LaravelShopifyGraphConnection::class);
+
+    config()->set('laravel-shopify-graph.api_version', '2026-01');
 });
 
 it('should throw ShopifyRateLimitExceededException on 429', function () {
