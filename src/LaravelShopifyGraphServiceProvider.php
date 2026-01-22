@@ -16,6 +16,6 @@ class LaravelShopifyGraphServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-shopify-graph')
-            ->hasConfigFile('laravel-shopify-graph');
+            ->hasConfigFile();
     }
 }
