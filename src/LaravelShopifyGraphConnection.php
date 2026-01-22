@@ -7,7 +7,6 @@ use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyForbiddenException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyRateLimitExceededException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServerErrorException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServiceUnavailableException;
-use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyUnauthorizedException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyValidationException;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
