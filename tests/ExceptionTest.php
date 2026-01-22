@@ -83,6 +83,25 @@ it('should throw ShopifyServerErrorException on 500', function () {
     expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyServerErrorException::class);
 });
 
+it('should throw ShopifyServerErrorException when ACCESS_DENIED', function () {
+    \Illuminate\Support\Facades\Http::fake([
+        $this->shopDomain.'/*' => Http::response([
+            'errors' => [
+                [
+                    'message' => 'Internal error. Looks like something went wrong on our end.
+Request ID: 1b355a21-7117-44c5-8d8b-8948082f40a8 (include this in support requests).',
+                    'extensions' => [
+                        'code' => 'ACCESS_DENIED',
+                        'requestId' => '1b355a21-7117-44c5-8d8b-8948082f40a8',
+                    ],
+                ],
+            ],
+        ], 200),
+    ]);
+
+    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyForbiddenException::class);
+});
+
 it('should throw ShopifyServerErrorException when INTERNAL_SERVER_ERROR', function () {
     \Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response([
