@@ -37,7 +37,7 @@ class LaravelShopifyGraphConnection
                 ->json();
         }
 
-        Log::info("Shopify Graph is Disabled. Dumping Request.", [
+        Log::info('Shopify Graph is Disabled. Dumping Request.', [
             'shop' => $shopUrl,
             'query' => $query,
             'variables' => $variables,
@@ -48,7 +48,7 @@ class LaravelShopifyGraphConnection
 
     private function constructClient(string $shopUrl, string $accessToken): PendingRequest
     {
-        return Http::baseUrl("https://{$shopUrl}/admin/api/" . config('laravel-shopify-graph.api_version'))
+        return Http::baseUrl("https://{$shopUrl}/admin/api/".config('laravel-shopify-graph.api_version'))
             ->withHeaders(['X-Shopify-Access-Token' => $accessToken])
             ->asJson()
             ->acceptJson()
