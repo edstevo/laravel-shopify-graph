@@ -14,6 +14,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Context;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -45,9 +46,19 @@ class LaravelShopifyGraphConnection
         return [];
     }
 
+    public function getIdFromGraphId(string $graphId): string
+    {
+        return Str::of($graphId)->afterLast('/');
+    }
+
+    public function makeGraphIdFromId(string $resource, string $id): string
+    {
+        return "gid://shopify/" . $resource . "/" . $id;
+    }
+
     private function constructClient(string $shopUrl, string $accessToken): PendingRequest
     {
-        return Http::baseUrl("https://{$shopUrl}/admin/api/".config('shopify-graph.api_version'))
+        return Http::baseUrl("https://{$shopUrl}/admin/api/" . config('shopify-graph.api_version'))
             ->withHeaders(['X-Shopify-Access-Token' => $accessToken])
             ->asJson()
             ->acceptJson()
