@@ -53,12 +53,12 @@ class LaravelShopifyGraphConnection
 
     public function makeGraphIdFromId(string $resource, string $id): string
     {
-        return "gid://shopify/" . $resource . "/" . $id;
+        return 'gid://shopify/'.$resource.'/'.$id;
     }
 
     private function constructClient(string $shopUrl, string $accessToken): PendingRequest
     {
-        return Http::baseUrl("https://{$shopUrl}/admin/api/" . config('shopify-graph.api_version'))
+        return Http::baseUrl("https://{$shopUrl}/admin/api/".config('shopify-graph.api_version'))
             ->withHeaders(['X-Shopify-Access-Token' => $accessToken])
             ->asJson()
             ->acceptJson()

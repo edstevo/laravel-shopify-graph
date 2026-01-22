@@ -4,7 +4,6 @@ namespace EdStevo\LaravelShopifyGraph;
 
 use EdStevo\LaravelShopifyGraph\Facades\LaravelShopifyGraph;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 abstract class LaravelShopifyGraphRequest
 {
