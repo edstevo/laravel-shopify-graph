@@ -12,64 +12,46 @@ class ArticleCreateInput extends Data
 {
     /**
      * The title of the article.
-     *
-     * @var string
      */
     public string $title;
 
     /**
      * The name of the author of the article.
-     *
-     * @var AuthorInput
      */
     public AuthorInput $author;
 
     /**
      * The ID of the blog containing the article.
-     *
-     * @var string|null
      */
     public ?string $blogId = null;
 
     /**
      * A unique, human-friendly string for the article that's automatically generated from the article's title. The handle is used in the article's URL.
-     *
-     * @var string|null
      */
     public ?string $handle = null;
 
     /**
      * The text of the article's body, complete with HTML markup.
-     *
-     * @var string|null
      */
     public ?string $body = null;
 
     /**
      * A summary of the article, which can include HTML markup. The summary is used by the online store theme to display the article on other pages, such as the home page or the main blog page.
-     *
-     * @var string|null
      */
     public ?string $summary = null;
 
     /**
      * The image associated with the article.
-     *
-     * @var ArticleImageInput|null
      */
     public ?ArticleImageInput $image;
 
     /**
      * Whether or not the article should be visible.
-     *
-     * @var bool
      */
     public bool $isPublished = false;
 
     /**
      * The date and time (ISO 8601 format) when the article should become visible.
-     *
-     * @var Carbon|null
      */
     public ?Carbon $publishDate = null;
 
@@ -89,8 +71,6 @@ class ArticleCreateInput extends Data
 
     /**
      * The suffix of the template that's used to render the page. If the value is an empty string or null, then the default article template is used.
-     *
-     * @var string|null
      */
     public ?string $templateSuffix = null;
 }
