@@ -65,7 +65,7 @@ class ArticleCreateInput extends Data
     /**
      * The input fields to create or update a metafield.
      *
-     * @var array MetafieldInput[]
+     * @var array RelatedMetafieldInput[]
      */
     public array $metafields = [];
 
