@@ -53,12 +53,12 @@ class LaravelShopifyGraphConnection
 
     public function makeGraphIdFromId(string $resource, string $id): string
     {
-        return 'gid://shopify/' . $resource . '/' . $id;
+        return 'gid://shopify/'.$resource.'/'.$id;
     }
 
     private function constructClient(string $shopUrl, string $accessToken): PendingRequest
     {
-        return Http::baseUrl("https://{$shopUrl}/admin/api/" . config('shopify-graph.api_version'))
+        return Http::baseUrl("https://{$shopUrl}/admin/api/".config('shopify-graph.api_version'))
             ->withHeaders(['X-Shopify-Access-Token' => $accessToken])
             ->asJson()
             ->acceptJson()
@@ -114,7 +114,7 @@ class LaravelShopifyGraphConnection
     {
         $errors = Arr::get($data, 'errors', []);
 
-        if (empty($errors) || !is_array($errors)) {
+        if (empty($errors) || ! is_array($errors)) {
             return;
         }
 
@@ -151,7 +151,7 @@ class LaravelShopifyGraphConnection
     {
         $userErrors = $this->extractUserErrors($data);
 
-        if (!empty($userErrors)) {
+        if (! empty($userErrors)) {
             $exception = new \Exception(json_encode($userErrors));
             throw new ShopifyValidationException($exception, 422);
         }
@@ -164,18 +164,18 @@ class LaravelShopifyGraphConnection
         $userErrors = [];
 
         foreach ($dotted as $key => $value) {
-            if (!Str::contains($key, '.userErrors')) {
+            if (! Str::contains($key, '.userErrors')) {
                 continue;
             }
 
             $path = Str::before($key, '.userErrors');
 
-            array_push($userErrorPaths, $path . ".userErrors");
+            array_push($userErrorPaths, $path.'.userErrors');
         }
 
         $userErrorPaths = array_unique($userErrorPaths);
 
-        foreach($userErrorPaths as $userErrorPath) {
+        foreach ($userErrorPaths as $userErrorPath) {
             array_push($userErrors, Arr::get($data, $userErrorPath));
         }
 
