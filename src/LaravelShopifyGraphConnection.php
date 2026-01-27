@@ -53,12 +53,12 @@ class LaravelShopifyGraphConnection
 
     public function makeGraphIdFromId(string $resource, string $id): string
     {
-        return 'gid://shopify/'.$resource.'/'.$id;
+        return 'gid://shopify/' . $resource . '/' . $id;
     }
 
     private function constructClient(string $shopUrl, string $accessToken): PendingRequest
     {
-        return Http::baseUrl("https://{$shopUrl}/admin/api/".config('shopify-graph.api_version'))
+        return Http::baseUrl("https://{$shopUrl}/admin/api/" . config('shopify-graph.api_version'))
             ->withHeaders(['X-Shopify-Access-Token' => $accessToken])
             ->asJson()
             ->acceptJson()
@@ -75,30 +75,8 @@ class LaravelShopifyGraphConnection
 
                 $data = json_decode($response->getBody(), true);
 
-                if ($error = Arr::get($data, 'errors.0')) {
-                    $code = Arr::get($error, 'extensions.code');
-                    $exception = new \Exception($error['message']);
-
-                    if ($code) {
-                        if ($code === 'THROTTLED' || $code === 'MAX_COST_EXCEEDED') {
-                            throw new ShopifyRateLimitExceededException($exception);
-                        }
-
-                        if ($code === 'ACCESS_DENIED') {
-                            throw new ShopifyForbiddenException($exception);
-                        }
-
-                        if ($code === 'SHOP_INACTIVE') {
-                            throw new ShopifyForbiddenException($exception);
-                        }
-
-                        if ($code === 'INTERNAL_SERVER_ERROR') {
-                            throw new ShopifyServerErrorException($exception);
-                        }
-                    }
-
-                    throw new ShopifyException($exception->getMessage(), 400, $exception);
-                }
+                $this->handleErrors($data);
+                $this->handleUserErrors($data);
 
                 return $response;
             })
@@ -130,5 +108,77 @@ class LaravelShopifyGraphConnection
 
                 return $response;
             });
+    }
+
+    private function handleErrors(mixed $data): void
+    {
+        $errors = Arr::get($data, 'errors', []);
+
+        if (empty($errors) || !is_array($errors)) {
+            return;
+        }
+
+        // If any error has a mapped exception, still prioritise that behaviour
+        foreach ($errors as $error) {
+            $code = Arr::get($error, 'extensions.code');
+
+            $errorMap = [
+                'THROTTLED' => ShopifyRateLimitExceededException::class,
+                'MAX_COST_EXCEEDED' => ShopifyRateLimitExceededException::class,
+                'ACCESS_DENIED' => ShopifyForbiddenException::class,
+                'SHOP_INACTIVE' => ShopifyForbiddenException::class,
+                'INTERNAL_SERVER_ERROR' => ShopifyServerErrorException::class,
+            ];
+
+            if ($code && isset($errorMap[$code])) {
+                $exceptionClass = $errorMap[$code];
+                $message = $error['message'] ?? 'Shopify error';
+                throw new $exceptionClass(new \Exception($message));
+            }
+        }
+
+        // Otherwise throw ALL errors as raw JSON
+        throw new ShopifyException(
+            json_encode($errors, JSON_UNESCAPED_SLASHES),
+            400
+        );
+    }
+
+    /**
+     * @throws ShopifyValidationException
+     */
+    private function handleUserErrors(mixed $data): void
+    {
+        $userErrors = $this->extractUserErrors($data);
+
+        if (!empty($userErrors)) {
+            $exception = new \Exception(json_encode($userErrors));
+            throw new ShopifyValidationException($exception, 422);
+        }
+    }
+
+    private function extractUserErrors(array $data): array
+    {
+        $dotted = Arr::dot($data);
+        $userErrorPaths = [];
+        $userErrors = [];
+
+        foreach ($dotted as $key => $value) {
+            if (!Str::contains($key, '.userErrors')) {
+                continue;
+            }
+
+            $path = Str::before($key, '.userErrors');
+
+            array_push($userErrorPaths, $path . ".userErrors");
+        }
+
+        $userErrorPaths = array_unique($userErrorPaths);
+
+        foreach($userErrorPaths as $userErrorPath) {
+            array_push($userErrors, Arr::get($data, $userErrorPath));
+        }
+
+        return Arr::flatten($userErrors, 1);
     }
 }

@@ -8,7 +8,7 @@ use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyValidationException;
 beforeEach(function () {
     \Illuminate\Support\Facades\Http::preventStrayRequests();
 
-    $this->shopDomain = fake()->word.'.myshopify.com';
+    $this->shopDomain = fake()->word . '.myshopify.com';
     $this->accessToken = \Illuminate\Support\Str::random();
 
     $this->client = app(\EdStevo\LaravelShopifyGraph\LaravelShopifyGraphConnection::class);
@@ -18,15 +18,15 @@ beforeEach(function () {
 
 it('should throw ShopifyRateLimitExceededException on 429', function () {
     \Illuminate\Support\Facades\Http::fake([
-        $this->shopDomain.'/*' => Http::response(['errors' => []], 429),
+        $this->shopDomain . '/*' => Http::response(['errors' => []], 429),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyRateLimitExceededException::class);
+    expect(fn() => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyRateLimitExceededException::class);
 });
 
 it('should throw ShopifyRateLimitExceededException when MAX_COST_EXCEEDED', function () {
     \Illuminate\Support\Facades\Http::fake([
-        $this->shopDomain.'/*' => Http::response([
+        $this->shopDomain . '/*' => Http::response([
             'errors' => [
                 [
                     'message' => 'Query cost is 2003, which exceeds the single query max cost limit (1000).
@@ -48,44 +48,44 @@ See https://shopify.dev/tutorials/perform-bulk-operations-with-admin-api for usa
         ], 200),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyRateLimitExceededException::class);
+    expect(fn() => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyRateLimitExceededException::class);
 });
 
 it('should throw ShopifyServiceUnavailableException on 503', function () {
     \Illuminate\Support\Facades\Http::fake([
-        $this->shopDomain.'/*' => Http::response(['errors' => []], 503),
+        $this->shopDomain . '/*' => Http::response(['errors' => []], 503),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyServiceUnavailableException::class);
+    expect(fn() => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyServiceUnavailableException::class);
 });
 
 it('should throw ShopifyServiceUnavailableException on 504', function () {
     \Illuminate\Support\Facades\Http::fake([
-        $this->shopDomain.'/*' => Http::response(['errors' => []], 504),
+        $this->shopDomain . '/*' => Http::response(['errors' => []], 504),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyServiceUnavailableException::class);
+    expect(fn() => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyServiceUnavailableException::class);
 });
 
 it('should throw ShopifyValidationException on 422', function () {
     \Illuminate\Support\Facades\Http::fake([
-        $this->shopDomain.'/*' => Http::response(['errors' => []], 422),
+        $this->shopDomain . '/*' => Http::response(['errors' => []], 422),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyValidationException::class);
+    expect(fn() => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyValidationException::class);
 });
 
 it('should throw ShopifyServerErrorException on 500', function () {
     \Illuminate\Support\Facades\Http::fake([
-        $this->shopDomain.'/*' => Http::response(['errors' => []], 500),
+        $this->shopDomain . '/*' => Http::response(['errors' => []], 500),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyServerErrorException::class);
+    expect(fn() => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyServerErrorException::class);
 });
 
 it('should throw ShopifyServerErrorException when ACCESS_DENIED', function () {
     \Illuminate\Support\Facades\Http::fake([
-        $this->shopDomain.'/*' => Http::response([
+        $this->shopDomain . '/*' => Http::response([
             'errors' => [
                 [
                     'message' => 'Internal error. Looks like something went wrong on our end.
@@ -99,12 +99,12 @@ Request ID: 1b355a21-7117-44c5-8d8b-8948082f40a8 (include this in support reques
         ], 200),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyForbiddenException::class);
+    expect(fn() => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyForbiddenException::class);
 });
 
 it('should throw ShopifyServerErrorException when INTERNAL_SERVER_ERROR', function () {
     \Illuminate\Support\Facades\Http::fake([
-        $this->shopDomain.'/*' => Http::response([
+        $this->shopDomain . '/*' => Http::response([
             'errors' => [
                 [
                     'message' => 'Internal error. Looks like something went wrong on our end.
@@ -118,12 +118,12 @@ Request ID: 1b355a21-7117-44c5-8d8b-8948082f40a8 (include this in support reques
         ], 200),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyServerErrorException::class);
+    expect(fn() => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyServerErrorException::class);
 });
 
 it('should throw ShopifyException when unknown error', function () {
     \Illuminate\Support\Facades\Http::fake([
-        $this->shopDomain.'/*' => Http::response([
+        $this->shopDomain . '/*' => Http::response([
             'errors' => [
                 [
                     'message' => 'Internal error. Looks like something went wrong on our end.
@@ -136,12 +136,12 @@ Request ID: 1b355a21-7117-44c5-8d8b-8948082f40a8 (include this in support reques
         ], 200),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyException::class);
+    expect(fn() => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyException::class);
 });
 
 it('should throw ShopifyException when no code present', function () {
     \Illuminate\Support\Facades\Http::fake([
-        $this->shopDomain.'/*' => Http::response([
+        $this->shopDomain . '/*' => Http::response([
             'errors' => [
                 [
                     'message' => 'Variable $blog of type BlogUpdateInput! was provided invalid value for ...',
@@ -151,5 +151,30 @@ it('should throw ShopifyException when no code present', function () {
         ], 200),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyException::class);
+    expect(fn() => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyException::class);
+});
+
+it('should throw ShopifyValidationException when there is a userError', function () {
+    Http::fake([
+        $this->shopDomain . '/*' => Http::response([
+            'data' => [
+                'articleUpdate' => [
+                    'article' => null,
+                    'userErrors' => [
+                        [
+                            'code' => 'UPLOAD_FAILED',
+                            'field' => ['article'],
+                            'message' => 'Image upload failed. Could not generate an image extension name.',
+                        ],
+                    ],
+                ],
+            ],
+        ], 200),
+    ]);
+
+    expect(fn() => $this->client->post(
+        $this->shopDomain,
+        $this->accessToken,
+        'mutation { articleUpdate { article { id } userErrors { code field message } } }'
+    ))->toThrow(ShopifyValidationException::class);
 });
