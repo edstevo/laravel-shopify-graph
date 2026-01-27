@@ -10,5 +10,5 @@ class ImageInput extends Data
 
     public ?string $id = null;
 
-    public ?string $url = null;
+    public ?string $src = null;
 }
