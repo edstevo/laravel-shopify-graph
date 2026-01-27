@@ -4,10 +4,14 @@ namespace EdStevo\LaravelShopifyGraph\Tests;
 
 use EdStevo\LaravelShopifyGraph\LaravelShopifyGraphServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Orchestra\Testbench\Concerns\WithWorkbench;
 
-class TestCase extends Orchestra
+class TestCase extends \Orchestra\Testbench\TestCase
 {
+    use WithWorkbench;
+    use RefreshDatabase;
+
     protected function setUp(): void
     {
         parent::setUp();
