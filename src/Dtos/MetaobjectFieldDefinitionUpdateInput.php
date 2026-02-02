@@ -14,6 +14,8 @@ class MetaobjectFieldDefinitionUpdateInput extends Data
 
     public string $name;
 
+    public \Spatie\LaravelData\Optional|null|bool $required;
+
     /**
      * @var MetafieldDefinitionValidationInput[]
      */
