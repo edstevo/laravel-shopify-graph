@@ -9,17 +9,17 @@ class MetaobjectDefinitionUpdateInput extends Data
     /**
      * Access configuration for the metaobjects created with this definition.
      */
-    public ?MetaobjectAccessInput $access;
+    public \Spatie\LaravelData\Optional|null|MetaobjectAccessInput $access;
 
     /**
      * The capabilities of the metaobject definition.
      */
-    public ?MetaobjectCapabilityUpdateInput $capabilities;
+    public \Spatie\LaravelData\Optional|null|MetaobjectCapabilityUpdateInput $capabilities;
 
     /**
      * An administrative description of the definition.
      */
-    public ?string $description;
+    public \Spatie\LaravelData\Optional|null|string $description;
 
     /**
      * The key of a field to reference as the display name for metaobjects of this type.
@@ -29,15 +29,15 @@ class MetaobjectDefinitionUpdateInput extends Data
     /**
      * A set of operations for modifying field definitions.
      */
-    public ?MetaobjectFieldDefinitionOperationInput $fieldDefinitions;
+    public \Spatie\LaravelData\Optional|null|MetaobjectFieldDefinitionOperationInput $fieldDefinitions;
 
     /**
      * A human-readable name for the definition. This can be changed at any time.
      */
-    public ?string $name;
+    public \Spatie\LaravelData\Optional|null|string $name;
 
     /**
      * Whether the field order should be reset while updating. If true, then the order is assigned based on submitted fields followed by alphabetized field omissions. If false, then no changes are made to the existing field order and new fields are appended at the end.
      */
-    public ?bool $resetFieldOrder;
+    public \Spatie\LaravelData\Optional|null|bool $resetFieldOrder;
 }

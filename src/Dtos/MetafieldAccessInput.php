@@ -9,9 +9,9 @@ use Spatie\LaravelData\Data;
 
 class MetafieldAccessInput extends Data
 {
-    public ?MetafieldAdminAccessInput $admin;
+    public \Spatie\LaravelData\Optional|null|MetafieldAdminAccessInput $admin;
 
-    public ?MetafieldCustomerAccountAccessInput $customerAccount;
+    public \Spatie\LaravelData\Optional|null|MetafieldCustomerAccountAccessInput $customerAccount;
 
-    public ?MetafieldStorefrontAccessInput $storefront;
+    public \Spatie\LaravelData\Optional|null|MetafieldStorefrontAccessInput $storefront;
 }

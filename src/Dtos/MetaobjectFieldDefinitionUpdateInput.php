@@ -6,9 +6,9 @@ use Spatie\LaravelData\Data;
 
 class MetaobjectFieldDefinitionUpdateInput extends Data
 {
-    public ?MetaobjectFieldDefinitionCapabilityCreateInput $capabilities;
+    public \Spatie\LaravelData\Optional|null|MetaobjectFieldDefinitionCapabilityCreateInput $capabilities;
 
-    public ?string $description;
+    public \Spatie\LaravelData\Optional|null|string $description;
 
     public string $key;
 

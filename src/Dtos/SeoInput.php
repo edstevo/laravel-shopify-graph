@@ -6,7 +6,7 @@ use Spatie\LaravelData\Data;
 
 class SeoInput extends Data
 {
-    public ?string $description;
+    public \Spatie\LaravelData\Optional|null|string $description;
 
-    public ?string $title;
+    public \Spatie\LaravelData\Optional|null|string $title;
 }

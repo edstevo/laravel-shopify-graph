@@ -6,7 +6,7 @@ use Spatie\LaravelData\Data;
 
 class MetaobjectCapabilityDefinitionDataOnlineStoreInput extends Data
 {
-    public ?bool $createRedirects;
+    public \Spatie\LaravelData\Optional|null|bool $createRedirects;
 
     public string $urlHandle;
 }

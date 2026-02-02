@@ -7,10 +7,10 @@ use Spatie\LaravelData\Data;
 
 class MetaobjectUpsertInput extends Data
 {
-    public ?MetaobjectCapabilityDataInput $capabilities;
+    public \Spatie\LaravelData\Optional|null|MetaobjectCapabilityDataInput $capabilities;
 
     /** @var Collection<int,MetaobjectFieldInput> */
     public Collection $fields;
 
-    public ?string $handle;
+    public \Spatie\LaravelData\Optional|null|string $handle;
 }

@@ -4,6 +4,7 @@ namespace EdStevo\LaravelShopifyGraph\Dtos;
 
 use Carbon\Carbon;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
 
 /**
  * The properties of the new article.
@@ -23,27 +24,27 @@ class ArticleCreateInput extends Data
     /**
      * The ID of the blog containing the article.
      */
-    public ?string $blogId;
+    public Optional|null|string $blogId;
 
     /**
      * A unique, human-friendly string for the article that's automatically generated from the article's title. The handle is used in the article's URL.
      */
-    public ?string $handle;
+    public Optional|null|string $handle;
 
     /**
      * The text of the article's body, complete with HTML markup.
      */
-    public ?string $body;
+    public Optional|null|string $body;
 
     /**
      * A summary of the article, which can include HTML markup. The summary is used by the online store theme to display the article on other pages, such as the home page or the main blog page.
      */
-    public ?string $summary;
+    public Optional|null|string $summary;
 
     /**
      * The image associated with the article.
      */
-    public ?ArticleImageInput $image;
+    public Optional|null|ArticleImageInput $image;
 
     /**
      * Whether or not the article should be visible.
@@ -53,7 +54,7 @@ class ArticleCreateInput extends Data
     /**
      * The date and time (ISO 8601 format) when the article should become visible.
      */
-    public ?Carbon $publishDate;
+    public Optional|null|Carbon $publishDate;
 
     /**
      * A comma-separated list of tags. Tags are additional short descriptors formatted as a string of comma-separated values.
@@ -72,5 +73,5 @@ class ArticleCreateInput extends Data
     /**
      * The suffix of the template that's used to render the page. If the value is an empty string or null, then the default article template is used.
      */
-    public ?string $templateSuffix;
+    public Optional|null|string $templateSuffix;
 }

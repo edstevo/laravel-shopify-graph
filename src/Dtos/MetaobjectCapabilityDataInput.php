@@ -6,7 +6,7 @@ use Spatie\LaravelData\Data;
 
 class MetaobjectCapabilityDataInput extends Data
 {
-    public ?MetaobjectCapabilityDataOnlineStoreInput $onlineStore;
+    public \Spatie\LaravelData\Optional|null|MetaobjectCapabilityDataOnlineStoreInput $onlineStore;
 
-    public ?MetaobjectCapabilityDataPublishableInput $publishable;
+    public \Spatie\LaravelData\Optional|null|MetaobjectCapabilityDataPublishableInput $publishable;
 }

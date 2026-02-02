@@ -3,28 +3,29 @@
 namespace EdStevo\LaravelShopifyGraph\Dtos;
 
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
 
 class CollectionInput extends Data
 {
     /**
      * The description of the collection, in HTML format.
      */
-    public ?string $descriptionHtml;
+    public Optional|null|string $descriptionHtml;
 
     /**
      * A unique human-friendly string for the collection. Automatically generated from the collection's title.
      */
-    public ?string $handle;
+    public Optional|null|string $handle;
 
     /**
      * The ID of the collection to be deleted.
      */
-    public ?string $id;
+    public Optional|null|string $id;
 
     /**
      * The image associated with the collection.
      */
-    public ?ImageInput $image;
+    public Optional|null|ImageInput $image;
 
     /**
      * The input fields to create or update a metafield.
@@ -41,15 +42,15 @@ class CollectionInput extends Data
     /**
      * SEO information for the collection.
      */
-    public ?SeoInput $seo;
+    public Optional|null|SeoInput $seo;
 
     /**
      * The theme template used when viewing the collection in a store.
      */
-    public ?string $templateSuffix;
+    public Optional|null|string $templateSuffix;
 
     /**
      * The title of the collection. Required for creating a new collection.
      */
-    public ?string $title;
+    public Optional|null|string $title;
 }

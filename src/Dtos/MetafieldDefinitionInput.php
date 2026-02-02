@@ -11,23 +11,23 @@ class MetafieldDefinitionInput extends Data
     /**
      * The access settings that apply to each of the metafields that belong to the metafield definition.
      */
-    public ?MetafieldAccessInput $access;
+    public \Spatie\LaravelData\Optional|null|MetafieldAccessInput $access;
 
     /**
      * The capabilities of the metafield definition.
      */
-    public ?MetafieldCapabilityInput $capabilities;
+    public \Spatie\LaravelData\Optional|null|MetafieldCapabilityInput $capabilities;
 
     /**
      * The constraints that determine what resources a metafield definition applies to.
      * https://shopify.dev/apps/build/custom-data/metafields/conditional-metafield-definitions
      */
-    public ?MetafieldDefinitionConstraintsInput $constraints;
+    public \Spatie\LaravelData\Optional|null|MetafieldDefinitionConstraintsInput $constraints;
 
     /**
      * The description for the metafield definition.
      */
-    public ?string $description;
+    public \Spatie\LaravelData\Optional|null|string $description;
 
     /**
      * The unique identifier for the metafield definition within its namespace.
@@ -44,7 +44,7 @@ class MetafieldDefinitionInput extends Data
      * The container for a group of metafields that the metafield definition will be associated with. If omitted, the app-reserved namespace will be used.
      * Must be 3-255 characters long and only contain alphanumeric, hyphen, and underscore characters.
      */
-    public ?string $namespace;
+    public \Spatie\LaravelData\Optional|null|string $namespace;
 
     /**
      * The resource type that the metafield definition is attached to.
