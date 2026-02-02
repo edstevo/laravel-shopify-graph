@@ -28,8 +28,10 @@ class MetaobjectDefinitionUpdateInput extends Data
 
     /**
      * A set of operations for modifying field definitions.
+     *
+     * @var MetaobjectFieldDefinitionOperationInput[]
      */
-    public \Spatie\LaravelData\Optional|null|MetaobjectFieldDefinitionOperationInput $fieldDefinitions;
+    public \Spatie\LaravelData\Optional|array $fieldDefinitions = [];
 
     /**
      * A human-readable name for the definition. This can be changed at any time.
