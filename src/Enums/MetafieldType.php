@@ -127,6 +127,11 @@ enum MetafieldType: string
     case FileReference = 'file_reference';
 
     /**
+     * A reference to a metaobject entry. You can use validations to set which metaobject definition the metaobject must be.
+     */
+    case MetaobjectReference = 'metaobject_reference';
+
+    /**
      * A reference to one of many metaobject definitions. Unlike metaobject_reference which only allows for a single metaobject definition to be set, mixed references allow for metaobjects that belong to different definitions.
      */
     case MixedReference = 'mixed_reference';
