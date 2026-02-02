@@ -6,15 +6,15 @@ use Spatie\LaravelData\Data;
 
 class MetaobjectFieldDefinitionCreateInput extends Data
 {
-    public ?MetaobjectFieldDefinitionCapabilityCreateInput $capabilities = null;
+    public ?MetaobjectFieldDefinitionCapabilityCreateInput $capabilities;
 
-    public ?string $description = null;
+    public ?string $description;
 
     public string $key;
 
-    public ?string $name = null;
+    public ?string $name;
 
-    public ?bool $required = null;
+    public ?bool $required;
 
     public $type;
 

@@ -6,9 +6,9 @@ use Spatie\LaravelData\Data;
 
 class ImageInput extends Data
 {
-    public ?string $altText = null;
+    public ?string $altText;
 
-    public ?string $id = null;
+    public ?string $id;
 
-    public ?string $src = null;
+    public ?string $src;
 }

@@ -9,17 +9,17 @@ class MetaobjectDefinitionUpdateInput extends Data
     /**
      * Access configuration for the metaobjects created with this definition.
      */
-    public ?MetaobjectAccessInput $access = null;
+    public ?MetaobjectAccessInput $access;
 
     /**
      * The capabilities of the metaobject definition.
      */
-    public ?MetaobjectCapabilityUpdateInput $capabilities = null;
+    public ?MetaobjectCapabilityUpdateInput $capabilities;
 
     /**
      * An administrative description of the definition.
      */
-    public ?string $description = null;
+    public ?string $description;
 
     /**
      * The key of a field to reference as the display name for metaobjects of this type.
@@ -34,10 +34,10 @@ class MetaobjectDefinitionUpdateInput extends Data
     /**
      * A human-readable name for the definition. This can be changed at any time.
      */
-    public ?string $name = null;
+    public ?string $name;
 
     /**
      * Whether the field order should be reset while updating. If true, then the order is assigned based on submitted fields followed by alphabetized field omissions. If false, then no changes are made to the existing field order and new fields are appended at the end.
      */
-    public ?bool $resetFieldOrder = null;
+    public ?bool $resetFieldOrder;
 }

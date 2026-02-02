@@ -9,9 +9,9 @@ use Spatie\LaravelData\Data;
 
 class MetaobjectAccessInput extends Data
 {
-    public ?MetaobjectAdminAccessInput $admin = null;
+    public ?MetaobjectAdminAccessInput $admin;
 
-    public ?MetaobjectCustomerAccountAccessInput $customerAccount = null;
+    public ?MetaobjectCustomerAccountAccessInput $customerAccount;
 
-    public ?MetaobjectStorefrontAccessInput $storefront = null;
+    public ?MetaobjectStorefrontAccessInput $storefront;
 }

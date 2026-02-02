@@ -6,7 +6,7 @@ use Spatie\LaravelData\Data;
 
 class ArticleImageInput extends Data
 {
-    public ?string $altText = null;
+    public ?string $altText;
 
-    public ?string $url = null;
+    public ?string $url;
 }

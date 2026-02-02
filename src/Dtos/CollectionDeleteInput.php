@@ -9,5 +9,5 @@ class CollectionDeleteInput extends Data
     /**
      * The ID of the collection to be deleted.
      */
-    public ?string $id = null;
+    public ?string $id;
 }

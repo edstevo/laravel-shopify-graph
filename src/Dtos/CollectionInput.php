@@ -9,22 +9,22 @@ class CollectionInput extends Data
     /**
      * The description of the collection, in HTML format.
      */
-    public ?string $descriptionHtml = null;
+    public ?string $descriptionHtml;
 
     /**
      * A unique human-friendly string for the collection. Automatically generated from the collection's title.
      */
-    public ?string $handle = null;
+    public ?string $handle;
 
     /**
      * The ID of the collection to be deleted.
      */
-    public ?string $id = null;
+    public ?string $id;
 
     /**
      * The image associated with the collection.
      */
-    public ?ImageInput $image = null;
+    public ?ImageInput $image;
 
     /**
      * The input fields to create or update a metafield.
@@ -41,15 +41,15 @@ class CollectionInput extends Data
     /**
      * SEO information for the collection.
      */
-    public ?SeoInput $seo = null;
+    public ?SeoInput $seo;
 
     /**
      * The theme template used when viewing the collection in a store.
      */
-    public ?string $templateSuffix = null;
+    public ?string $templateSuffix;
 
     /**
      * The title of the collection. Required for creating a new collection.
      */
-    public ?string $title = null;
+    public ?string $title;
 }

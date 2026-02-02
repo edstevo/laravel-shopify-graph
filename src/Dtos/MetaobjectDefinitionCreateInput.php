@@ -9,12 +9,12 @@ class MetaobjectDefinitionCreateInput extends Data
     /**
      * Access configuration for the metaobjects created with this definition.
      */
-    public ?MetaobjectAccessInput $access = null;
+    public ?MetaobjectAccessInput $access;
 
     /**
      * The capabilities of the metaobject definition.
      */
-    public ?MetaobjectCapabilityInput $capabilities = null;
+    public ?MetaobjectCapabilityInput $capabilities;
 
     /**
      * A set of field definitions to create on this metaobject definition.
@@ -26,7 +26,7 @@ class MetaobjectDefinitionCreateInput extends Data
     /**
      * An administrative description of the definition.
      */
-    public ?string $description = null;
+    public ?string $description;
 
     /**
      * The key of a field to reference as the display name for metaobjects of this type.
@@ -36,7 +36,7 @@ class MetaobjectDefinitionCreateInput extends Data
     /**
      * A human-readable name for the definition. This can be changed at any time.
      */
-    public ?string $name = null;
+    public ?string $name;
 
     /**
      * The type of the metaobject definition. This can't be changed.

@@ -6,11 +6,11 @@ use Spatie\LaravelData\Data;
 
 class MetaobjectCapabilityUpdateInput extends Data
 {
-    public ?MetaobjectCapabilityOnlineStoreInput $onlineStore = null;
+    public ?MetaobjectCapabilityOnlineStoreInput $onlineStore;
 
-    public ?MetaobjectCapabilityPublishableInput $publishable = null;
+    public ?MetaobjectCapabilityPublishableInput $publishable;
 
-    public ?MetaobjectCapabilityRenderableInput $renderable = null;
+    public ?MetaobjectCapabilityRenderableInput $renderable;
 
-    public ?MetaobjectCapabilityTranslatableInput $translatable = null;
+    public ?MetaobjectCapabilityTranslatableInput $translatable;
 }

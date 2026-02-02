@@ -6,5 +6,5 @@ use Spatie\LaravelData\Data;
 
 class MetaobjectFieldDefinitionCapabilityCreateInput extends Data
 {
-    public ?MetaobjectFieldCapabilityAdminFilterableInput $adminFilterable = null;
+    public ?MetaobjectFieldCapabilityAdminFilterableInput $adminFilterable;
 }

@@ -9,15 +9,15 @@ class MetafieldCapabilityInput extends Data
     /**
      * The input for updating the admin filterable capability.
      */
-    public ?MetafieldCapabilityAdminFilterableInput $adminFilterable = null;
+    public ?MetafieldCapabilityAdminFilterableInput $adminFilterable;
 
     /**
      * The input for updating the smart collection condition capability.
      */
-    public ?MetafieldCapabilitySmartCollectionConditionInput $smartCollectionCondition = null;
+    public ?MetafieldCapabilitySmartCollectionConditionInput $smartCollectionCondition;
 
     /**
      * The input for updating the unique values capability.
      */
-    public ?MetafieldCapabilityUniqueValuesInput $uniqueValues = null;
+    public ?MetafieldCapabilityUniqueValuesInput $uniqueValues;
 }
