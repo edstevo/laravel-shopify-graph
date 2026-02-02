@@ -7,5 +7,6 @@ use Spatie\LaravelData\Data;
 class MetaobjectCapabilityRenderableInput extends Data
 {
     public MetaobjectCapabilityDefinitionDataRenderableInput $data;
+
     public bool $enabled;
 }

@@ -11,5 +11,6 @@ class MetaobjectCapabilityInput extends Data
     public MetaobjectCapabilityPublishableInput $publishable;
 
     public MetaobjectCapabilityRenderableInput $renderable;
+
     public MetaobjectCapabilityTranslatableInput $translatable;
 }

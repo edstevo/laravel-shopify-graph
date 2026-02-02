@@ -7,5 +7,6 @@ use Spatie\LaravelData\Data;
 class MetaobjectCapabilityDefinitionDataRenderableInput extends Data
 {
     public string $metaDescriptionKey;
+
     public string $metaTitleKey;
 }
