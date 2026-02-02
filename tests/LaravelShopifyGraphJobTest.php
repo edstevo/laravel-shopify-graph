@@ -6,7 +6,7 @@ it('should dispatch ok', function () {
     $shopDomain = fake()->word.'.myshopify.com';
     $accessToken = \Illuminate\Support\Str::random();
     $file = \Workbench\App\Models\File::factory()->create();
-    \Workbench\App\Jobs\TestRequestJob::dispatch($file, $shopDomain, $accessToken);;
+    \Workbench\App\Jobs\TestRequestJob::dispatch($file, $shopDomain, $accessToken);
 
     Bus::assertDispatched(\Workbench\App\Jobs\TestRequestJob::class);
 });
@@ -17,7 +17,7 @@ it('should request ok', function () {
     $shopifyId = \Illuminate\Support\Str::random();
 
     \Illuminate\Support\Facades\Http::fake([
-        $shopDomain."/*" => Http::response(['data' => [
+        $shopDomain.'/*' => Http::response(['data' => [
             'fileCreate' => [
                 'files' => [
                     [
@@ -37,7 +37,7 @@ it('should request ok', function () {
     ]);
 
     $file = \Workbench\App\Models\File::factory()->create();
-    \Workbench\App\Jobs\TestRequestJob::dispatch($file, $shopDomain, $accessToken);;
+    \Workbench\App\Jobs\TestRequestJob::dispatch($file, $shopDomain, $accessToken);
 
     Http::assertSentCount(1);
 

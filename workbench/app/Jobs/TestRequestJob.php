@@ -4,7 +4,6 @@ namespace Workbench\App\Jobs;
 
 use EdStevo\LaravelShopifyGraph\Dtos\FileContentType;
 use EdStevo\LaravelShopifyGraph\Dtos\FileCreateInput;
-use EdStevo\LaravelShopifyGraph\Dtos\FileCreateInputDuplicateResolutionMode;
 use EdStevo\LaravelShopifyGraph\LaravelShopifyGraphJob;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Arr;
@@ -12,11 +11,7 @@ use Workbench\App\Models\File;
 
 class TestRequestJob extends LaravelShopifyGraphJob implements ShouldQueue
 {
-
-    public function __construct(public File $file, public string $shopDomain, public string $accessToken)
-    {
-
-    }
+    public function __construct(public File $file, public string $shopDomain, public string $accessToken) {}
 
     public function query(): string
     {
@@ -41,8 +36,8 @@ class TestRequestJob extends LaravelShopifyGraphJob implements ShouldQueue
             'files' => [
                 FileCreateInput::from([
                     'filename' => $this->file->filename,
-                    'contentType' => FileContentType::IMAGE
-                ])->toArray()
+                    'contentType' => FileContentType::IMAGE,
+                ])->toArray(),
             ],
         ];
     }
