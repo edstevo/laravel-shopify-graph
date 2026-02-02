@@ -2,6 +2,7 @@
 
 namespace EdStevo\LaravelShopifyGraph\Dtos;
 
+use EdStevo\LaravelShopifyGraph\Enums\MetafieldType;
 use Spatie\LaravelData\Data;
 
 class MetaobjectFieldDefinitionCreateInput extends Data
@@ -16,7 +17,7 @@ class MetaobjectFieldDefinitionCreateInput extends Data
 
     public \Spatie\LaravelData\Optional|null|bool $required;
 
-    public $type;
+    public MetafieldType $type;
 
     /**
      * @var MetafieldDefinitionValidationInput[]
