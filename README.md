@@ -139,7 +139,8 @@ Use Laravel Queues to queue Shopify Graph API requests:
     
         public function handleResponse(array $data): void
         {
-            return $data;
+            $this->article->shopify_id = $data['articleCreate']['article']['id'];
+            $this->article->save();
         }
     }
     
