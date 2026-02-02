@@ -2,6 +2,8 @@
 
 namespace EdStevo\LaravelShopifyGraph\Dtos;
 
+use EdStevo\LaravelShopifyGraph\Enums\MetafieldOwnerType;
+use EdStevo\LaravelShopifyGraph\Enums\MetafieldType;
 use Spatie\LaravelData\Data;
 
 class MetafieldDefinitionInput extends Data
@@ -54,6 +56,12 @@ class MetafieldDefinitionInput extends Data
      * https://help.shopify.com/manual/custom-data/metafields/pinning-metafield-definitions
      */
     public bool $pin = false;
+
+    /**
+     * The type of data that each of the metafields that belong to the metafield definition will store. Refer to the list of supported types.
+     * https://shopify.dev/apps/metafields/types
+     */
+    public MetafieldType $type;
 
     /**
      * A list of validation options for the metafields that belong to the metafield definition. For example, for a metafield definition with the type date, you can set a minimum date validation so that each of the metafields that belong to it can only store dates after the specified minimum.

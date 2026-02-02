@@ -1,6 +1,6 @@
 <?php
 
-namespace EdStevo\LaravelShopifyGraph\Dtos;
+namespace EdStevo\LaravelShopifyGraph\Enums;
 
 enum MetaobjectStatus: string
 {

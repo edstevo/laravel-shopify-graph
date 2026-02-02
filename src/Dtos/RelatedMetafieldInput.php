@@ -2,6 +2,7 @@
 
 namespace EdStevo\LaravelShopifyGraph\Dtos;
 
+use EdStevo\LaravelShopifyGraph\Enums\MetafieldType;
 use Spatie\LaravelData\Data;
 
 class RelatedMetafieldInput extends Data

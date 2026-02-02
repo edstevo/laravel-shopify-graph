@@ -2,6 +2,7 @@
 
 namespace EdStevo\LaravelShopifyGraph\Dtos;
 
+use EdStevo\LaravelShopifyGraph\Enums\CommentPolicy;
 use Spatie\LaravelData\Data;
 
 class BlogCreateInput extends Data

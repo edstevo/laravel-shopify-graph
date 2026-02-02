@@ -2,6 +2,8 @@
 
 namespace EdStevo\LaravelShopifyGraph\Dtos;
 
+use EdStevo\LaravelShopifyGraph\Enums\FileContentType;
+use EdStevo\LaravelShopifyGraph\Enums\FileCreateInputDuplicateResolutionMode;
 use Spatie\LaravelData\Data;
 
 class FileCreateInput extends Data

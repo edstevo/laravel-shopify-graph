@@ -2,6 +2,7 @@
 
 namespace EdStevo\LaravelShopifyGraph\Dtos;
 
+use EdStevo\LaravelShopifyGraph\Enums\MetafieldOwnerType;
 use Spatie\LaravelData\Data;
 
 class MetafieldDefinitionUpdateInput extends Data

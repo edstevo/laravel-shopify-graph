@@ -2,8 +2,8 @@
 
 namespace Workbench\App\Jobs;
 
-use EdStevo\LaravelShopifyGraph\Dtos\FileContentType;
 use EdStevo\LaravelShopifyGraph\Dtos\FileCreateInput;
+use EdStevo\LaravelShopifyGraph\Enums\FileContentType;
 use EdStevo\LaravelShopifyGraph\LaravelShopifyGraphJob;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Arr;
