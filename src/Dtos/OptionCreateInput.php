@@ -9,22 +9,16 @@ class OptionCreateInput extends Data
 {
     /**
      * Specifies the metafield the option is linked to.
-     *
-     * @var Optional|LinkedMetafieldCreateInput
      */
     public Optional|LinkedMetafieldCreateInput $linkedMetafield;
 
     /**
      * Name of the option.
-     *
-     * @var Optional|string
      */
     public Optional|string $name;
 
     /**
      * Position of the option.
-     *
-     * @var Optional|int
      */
     public Optional|int $position;
 

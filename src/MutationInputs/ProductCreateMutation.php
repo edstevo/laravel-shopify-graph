@@ -18,8 +18,6 @@ class ProductCreateMutation extends Data
 
     /**
      * The media to add to the product.
-     *
-     * @var Optional|ProductCreateInput
      */
     public Optional|ProductCreateInput $product;
 }

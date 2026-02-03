@@ -8,15 +8,11 @@ class LinkedMetafieldCreateInput extends Data
 {
     /**
      * The key of the metafield this option is linked to.
-     *
-     * @var string
      */
     public string $key;
 
     /**
      * The namespace of the metafield this option is linked to.
-     *
-     * @var string
      */
     public string $namespace;
 

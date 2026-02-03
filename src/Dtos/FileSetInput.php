@@ -10,9 +10,14 @@ use Spatie\LaravelData\Data;
 class FileSetInput extends Data
 {
     public Optional|string $alt;
+
     public Optional|FileContentType $contentType;
+
     public Optional|FileCreateInputDuplicateResolutionMode $duplicateResolutionMode;
+
     public Optional|string $filename;
+
     public Optional|string $id;
+
     public Optional|string $originalSource;
 }

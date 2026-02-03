@@ -10,29 +10,21 @@ class UnitPriceMeasurementInput extends Data
 {
     /**
      * The quantity unit for the unit price measurement.
-     *
-     * @var Optional|UnitPriceMeasurementMeasuredUnit
      */
     public Optional|UnitPriceMeasurementMeasuredUnit $quantityUnit;
 
     /**
      * The quantity value for the unit price measurement.
-     *
-     * @var Optional|string
      */
     public Optional|string $quantityValue;
 
     /**
      * The reference unit for the unit price measurement.
-     *
-     * @var Optional|UnitPriceMeasurementMeasuredUnit
      */
     public Optional|UnitPriceMeasurementMeasuredUnit $referenceUnit;
 
     /**
      * The reference value for the unit price measurement.
-     *
-     * @var Optional|int
      */
     public Optional|int $referenceValue;
 }

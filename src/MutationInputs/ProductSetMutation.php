@@ -10,15 +10,11 @@ class ProductSetMutation extends Data
 {
     /**
      * Specifies the identifier that will be used to lookup the resource.
-     *
-     * @var Optional|ProductSetIdentifiers
      */
     public Optional|ProductSetIdentifiers $identifier;
 
     /**
      * The properties of the newly created or updated product.
-     *
-     * @var ProductSetInput
      */
     public ProductSetInput $input;
 }

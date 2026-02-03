@@ -8,8 +8,6 @@ class ProductDeleteInput extends Data
 {
     /**
      * The ID of the product.
-     *
-     * @var string
      */
     public string $id;
 }
