@@ -13,7 +13,7 @@ class ProductSetInput extends Data
      * The ID of the category that's associated with the product.
      * https://shopify.github.io/product-taxonomy/releases/unstable/?categoryId=sg-4-17-2-17
      */
-    public Optional|string $category;
+    public Optional|null|string $category;
 
     /**
      * The input field to enable an app to provide additional product features.
@@ -38,7 +38,7 @@ class ProductSetInput extends Data
      * The description of the product, with HTML tags.
      * For example, the description might include bold <strong></strong> and italic <i></i> text.
      */
-    public Optional|string $descriptionHtml;
+    public Optional|null|string $descriptionHtml;
 
     /**
      * The files to associate with the product.
@@ -56,14 +56,14 @@ class ProductSetInput extends Data
     /**
      * The theme template that's used when customers view a gift card in a store.
      */
-    public Optional|string $giftCardTemplateSuffix;
+    public Optional|null|string $giftCardTemplateSuffix;
 
     /**
      * A unique, human-readable string that's used to identify the product in URLs.
      * A handle can contain letters, hyphens (-), and numbers, but no spaces. If no handle is explicitly provided, then the title is used to construct the product's handle.
      * For example, if a product is titled "Black Sunglasses" and no handle is provided, then the handle black-sunglasses is generated (unless that handle is already taken, in which case a suffix is added to make the handle unique).
      */
-    public Optional|string $handle;
+    public Optional|null|string $handle;
 
     /**
      * The metafields to associate with this product.
@@ -83,7 +83,7 @@ class ProductSetInput extends Data
     /**
      * The product type that merchants define.
      */
-    public Optional|string $productType;
+    public Optional|null|string $productType;
 
     /**
      * Whether a redirect is required after a new handle has been provided.
@@ -119,14 +119,14 @@ class ProductSetInput extends Data
     /**
      * The theme template that's used when customers view a product in a store.
      */
-    public Optional|string $templateSuffix;
+    public Optional|null|string $templateSuffix;
 
     /**
      * The name for the product that displays to customers.
      * If no handle is explicitly provided, then the title is used to construct the product's handle.
      * For example, if a product is titled "Black Sunglasses" and no handle is provided, then the handle black-sunglasses is generated.
      */
-    public Optional|string $title;
+    public Optional|null|string $title;
 
     /**
      * A list of variants associated with the product.
@@ -139,5 +139,5 @@ class ProductSetInput extends Data
     /**
      * The name of the product's vendor.
      */
-    public Optional|string $vendor;
+    public Optional|null|string $vendor;
 }
