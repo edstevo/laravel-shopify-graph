@@ -3,6 +3,7 @@
 namespace EdStevo\LaravelShopifyGraph\MutationInputs;
 
 use EdStevo\LaravelShopifyGraph\Dtos\ProductSetIdentifiers;
+use EdStevo\LaravelShopifyGraph\Dtos\ProductSetInput;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
