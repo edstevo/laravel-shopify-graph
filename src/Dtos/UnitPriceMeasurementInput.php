@@ -16,7 +16,7 @@ class UnitPriceMeasurementInput extends Data
     /**
      * The quantity value for the unit price measurement.
      */
-    public Optional|string $quantityValue;
+    public Optional|float $quantityValue;
 
     /**
      * The reference unit for the unit price measurement.
