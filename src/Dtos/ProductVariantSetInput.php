@@ -11,12 +11,12 @@ class ProductVariantSetInput extends Data
     /**
      * The value of the barcode associated with the product.
      */
-    public Optional|string $barcode;
+    public Optional|null|string $barcode;
 
     /**
      * The compare-at price of the variant.
      */
-    public Optional|string $compareAtPrice;
+    public Optional|null|string $compareAtPrice;
 
     /**
      * The file to associate with the variant.
@@ -67,12 +67,12 @@ class ProductVariantSetInput extends Data
     /**
      * The order of the product variant in the list of product variants. The first position in the list is 1.
      */
-    public Optional|int $position;
+    public Optional|null|int $position;
 
     /**
      * The price of the variant.
      */
-    public Optional|string $price;
+    public Optional|null|string $price;
 
     /**
      * Whether a product variant requires components. The default value is false.
@@ -88,7 +88,7 @@ class ProductVariantSetInput extends Data
     /**
      * The SKU for the variant. Case-sensitive string.
      */
-    public Optional|string $sku;
+    public Optional|null|string $sku;
 
     /**
      * Whether the variant is taxable.
@@ -98,7 +98,7 @@ class ProductVariantSetInput extends Data
     /**
      * The tax code associated with the variant.
      */
-    public Optional|bool $taxCode;
+    public Optional|null|string $taxCode;
 
     /**
      * The unit price measurement for the product variant.
