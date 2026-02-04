@@ -28,7 +28,7 @@ class ProductVariantSetInput extends Data
     /**
      * Specifies the product variant to update or create a new variant if absent.
      */
-    public Optional|string $id;
+    public Optional|null|string $id;
 
     /**
      * The inventory item associated with the variant, used for unit cost.
