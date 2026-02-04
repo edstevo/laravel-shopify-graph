@@ -62,7 +62,7 @@
             "@php vendor/bin/testbench serve --ansi"
         ],
         "lint": [
-            "@php vendor/bin/pint --ansi"
+            "@php vendor/bin/pint --ansi --parallel"
         ]
     },
     "config": {
