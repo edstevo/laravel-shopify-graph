@@ -103,5 +103,5 @@ class ProductVariantSetInput extends Data
     /**
      * The unit price measurement for the product variant.
      */
-    public Optional|UnitPriceMeasurementInput $unitPriceMeasurement;
+    public Optional|null|UnitPriceMeasurementInput $unitPriceMeasurement;
 }
