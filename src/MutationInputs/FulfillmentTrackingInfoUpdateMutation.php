@@ -9,6 +9,7 @@ use Spatie\LaravelData\Optional;
 class FulfillmentTrackingInfoUpdateMutation extends Data
 {
     public string $fulfillmentId;
+
     public Optional|bool $notifyCustomer;
 
     public FulfillmentTrackingInput $trackingInfoInput;
