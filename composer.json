@@ -45,7 +45,6 @@
     },
     "scripts": {
         "post-autoload-dump": [
-            "@clear",
             "@prepare"
         ],
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
