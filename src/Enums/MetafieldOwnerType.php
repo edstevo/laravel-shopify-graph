@@ -19,6 +19,10 @@ enum MetafieldOwnerType: string
     case GIFT_CARD_TRANSACTION = 'GIFT_CARD_TRANSACTION';
     case LOCATION = 'LOCATION';
     case MARKET = 'MARKET';
+    /**
+     * @deprecated Use PRODUCT instead.
+     */
+    case MEDIA_IMAGE = 'MEDIA_IMAGE';
     case ORDER = 'ORDER';
     case ORDER_ROUTING_LOCATION_RULE = 'ORDER_ROUTING_LOCATION_RULE';
     case PAGE = 'PAGE';

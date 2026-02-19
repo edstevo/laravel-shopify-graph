@@ -2,7 +2,7 @@
 
 namespace EdStevo\LaravelShopifyGraph\Enums;
 
-enum MetafieldCustomerAccountAccessInput: string
+enum MetaobjectCustomerAccountAccess: string
 {
     /**
      * No access.
@@ -13,9 +13,4 @@ enum MetafieldCustomerAccountAccessInput: string
      * Read-only access.
      */
     case READ = 'READ';
-
-    /**
-     * Read and write access.
-     */
-    case READ_WRITE = 'READ_WRITE';
 }

@@ -2,8 +2,15 @@
 
 namespace EdStevo\LaravelShopifyGraph\Enums;
 
-enum MetaobjectStorefrontAccessInput: string
+enum MetaobjectStorefrontAccess: string
 {
+    /**
+     * No access.
+     */
     case NONE = 'NONE';
+
+    /**
+     * Public read access.
+     */
     case PUBLIC_READ = 'PUBLIC_READ';
 }
