@@ -1,6 +1,7 @@
 <?php
 
 it('should dispatch ok', function () {
+    config()->set('shopify-graph.enabled', 'true');
     \Illuminate\Support\Facades\Bus::fake();
 
     $shopDomain = fake()->word.'.myshopify.com';
@@ -12,6 +13,7 @@ it('should dispatch ok', function () {
 });
 
 it('should request ok', function () {
+    config()->set('shopify-graph.enabled', 'true');
     $shopDomain = fake()->word.'.myshopify.com';
     $accessToken = \Illuminate\Support\Str::random();
     $shopifyId = \Illuminate\Support\Str::random();
@@ -37,7 +39,8 @@ it('should request ok', function () {
     ]);
 
     $file = \Workbench\App\Models\File::factory()->create();
-    \Workbench\App\Jobs\TestRequestJob::dispatch($file, $shopDomain, $accessToken);
+    $job = new \Workbench\App\Jobs\TestRequestJob($file, $shopDomain, $accessToken);
+    $job->handle();
 
     Http::assertSentCount(1);
 

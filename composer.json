@@ -2,7 +2,7 @@
     "name": "edstevo/laravel-shopify-graph",
     "description": "A package for connecting to the Shopify Graph API",
     "keywords": [
-        "edsteo",
+        "edstevo",
         "laravel",
         "laravel-shopify-graph"
     ],
@@ -10,7 +10,7 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Edward Stephendon",
+            "name": "Edward Stephenson",
             "email": "edward.stephenson@me.com",
             "role": "Developer"
         }
@@ -46,11 +46,9 @@
     "scripts": {
         "post-autoload-dump": [
             "@clear",
-            "@prepare",
-            "@composer run prepare"
+            "@prepare"
         ],
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
-        "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
         "format": "vendor/bin/pint",
@@ -68,8 +66,7 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "phpstan/extension-installer": true
+            "pestphp/pest-plugin": true
         }
     },
     "extra": {

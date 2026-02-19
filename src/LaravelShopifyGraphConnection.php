@@ -7,6 +7,7 @@ use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyForbiddenException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyRateLimitExceededException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServerErrorException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServiceUnavailableException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyUnauthorizedException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyValidationException;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
@@ -17,9 +18,12 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 class LaravelShopifyGraphConnection
 {
+    private const API_VERSION = '2026-01';
+
     /**
      * Send a GraphQL query to Shopify
      *
@@ -28,13 +32,23 @@ class LaravelShopifyGraphConnection
     public function post(string $shopUrl, string $accessToken, string $query, array $variables = []): array
     {
         if (filter_var(config('shopify-graph.enabled'), FILTER_VALIDATE_BOOLEAN)) {
-            return $this
+            $response = $this
                 ->constructClient($shopUrl, $accessToken)
                 ->post('/graphql.json', [
                     'query' => $query,
                     'variables' => empty($variables) ? null : $variables,
                 ])
                 ->json();
+
+            if (! is_array($response)) {
+                return ['data' => []];
+            }
+
+            if (! array_key_exists('data', $response)) {
+                $response['data'] = [];
+            }
+
+            return $response;
         }
 
         Log::info('Shopify Graph is Disabled. Dumping Request.', [
@@ -43,7 +57,7 @@ class LaravelShopifyGraphConnection
             'variables' => $variables,
         ]);
 
-        return [];
+        return ['data' => []];
     }
 
     public function getIdFromGraphId(string $graphId): string
@@ -58,22 +72,27 @@ class LaravelShopifyGraphConnection
 
     private function constructClient(string $shopUrl, string $accessToken): PendingRequest
     {
-        return Http::baseUrl("https://{$shopUrl}/admin/api/".config('shopify-graph.api_version'))
+        return Http::baseUrl("https://{$shopUrl}/admin/api/".self::API_VERSION)
             ->withHeaders(['X-Shopify-Access-Token' => $accessToken])
             ->asJson()
             ->acceptJson()
             ->withRequestMiddleware(function (RequestInterface $request) {
-                Context::add('shopify-graph-request-json', $request->getBody()->getContents());
-                Context::add('shopify-graph-request-body', json_decode($request->getBody()->getContents(), true));
+                $requestJson = $this->readStreamContents($request->getBody());
+
+                Context::add('shopify-graph-request-json', $requestJson);
+                Context::add('shopify-graph-request-body', json_decode($requestJson, true));
 
                 return $request;
             })
             ->withResponseMiddleware(function (ResponseInterface $response) {
-                Context::add('shopify-graph-request-id', $response->getHeader('X-Request-ID'));
-                Context::add('shopify-graph-response-json', $response->getBody()->getContents());
-                Context::add('shopify-graph-response-body', json_decode($response->getBody()->getContents(), true));
+                $responseJson = $this->readStreamContents($response->getBody());
 
-                $data = json_decode($response->getBody(), true);
+                Context::add('shopify-graph-request-id', $response->getHeader('X-Request-ID'));
+                Context::add('shopify-graph-response-json', $responseJson);
+                Context::add('shopify-graph-response-body', json_decode($responseJson, true));
+
+                $data = json_decode($responseJson, true);
+                $data = is_array($data) ? $data : [];
 
                 $this->handleErrors($data);
                 $this->handleUserErrors($data);
@@ -81,6 +100,14 @@ class LaravelShopifyGraphConnection
                 return $response;
             })
             ->throwIf(function (Response $response) {
+                if ($response->unauthorized()) {
+                    throw new ShopifyUnauthorizedException($response->toException());
+                }
+
+                if ($response->forbidden()) {
+                    throw new ShopifyForbiddenException($response->toException());
+                }
+
                 if ($response->tooManyRequests()) {
                     throw new ShopifyRateLimitExceededException($response->toException());
                 }
@@ -110,7 +137,7 @@ class LaravelShopifyGraphConnection
             });
     }
 
-    private function handleErrors(mixed $data): void
+    private function handleErrors(array $data): void
     {
         $errors = Arr::get($data, 'errors', []);
 
@@ -147,7 +174,7 @@ class LaravelShopifyGraphConnection
     /**
      * @throws ShopifyValidationException
      */
-    private function handleUserErrors(mixed $data): void
+    private function handleUserErrors(array $data): void
     {
         $userErrors = $this->extractUserErrors($data);
 
@@ -180,5 +207,19 @@ class LaravelShopifyGraphConnection
         }
 
         return Arr::flatten($userErrors, 1);
+    }
+
+    private function readStreamContents(StreamInterface $stream): string
+    {
+        if (! $stream->isSeekable()) {
+            return (string) $stream;
+        }
+
+        $position = $stream->tell();
+        $stream->rewind();
+        $contents = $stream->getContents();
+        $stream->seek($position);
+
+        return $contents;
     }
 }

@@ -3,6 +3,7 @@
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyRateLimitExceededException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServerErrorException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServiceUnavailableException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyUnauthorizedException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyValidationException;
 
 beforeEach(function () {
@@ -13,7 +14,22 @@ beforeEach(function () {
 
     $this->client = app(\EdStevo\LaravelShopifyGraph\LaravelShopifyGraphConnection::class);
 
-    config()->set('shopify-graph.api_version', '2026-01');
+});
+
+it('should throw ShopifyUnauthorizedException on 401', function () {
+    \Illuminate\Support\Facades\Http::fake([
+        $this->shopDomain.'/*' => Http::response(['errors' => []], 401),
+    ]);
+
+    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyUnauthorizedException::class);
+});
+
+it('should throw ShopifyForbiddenException on 403', function () {
+    \Illuminate\Support\Facades\Http::fake([
+        $this->shopDomain.'/*' => Http::response(['errors' => []], 403),
+    ]);
+
+    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyForbiddenException::class);
 });
 
 it('should throw ShopifyRateLimitExceededException on 429', function () {
@@ -83,7 +99,7 @@ it('should throw ShopifyServerErrorException on 500', function () {
     expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyServerErrorException::class);
 });
 
-it('should throw ShopifyServerErrorException when ACCESS_DENIED', function () {
+it('should throw ShopifyForbiddenException when ACCESS_DENIED', function () {
     \Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response([
             'errors' => [

@@ -16,9 +16,10 @@ it('should not send when disabled', function () {
         $this->shopDomain.'/*' => Http::response(['errors' => []], 429),
     ]);
 
-    $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }');
+    $response = $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }');
 
     \Illuminate\Support\Facades\Http::assertNothingSent();
+    expect($response)->toBe(['data' => []]);
 });
 
 it('should send when not disabled', function () {
