@@ -6,6 +6,7 @@ use EdStevo\LaravelShopifyGraph\LaravelShopifyGraphServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\Concerns\WithWorkbench;
+use Spatie\LaravelData\LaravelDataServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -16,6 +17,14 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         parent::setUp();
 
+        if (config('data') === null) {
+            $configPath = __DIR__.'/../vendor/spatie/laravel-data/config/data.php';
+
+            if (file_exists($configPath)) {
+                config()->set('data', require $configPath);
+            }
+        }
+
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'EdStevo\\LaravelShopifyGraph\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
@@ -25,17 +34,22 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         return [
             LaravelShopifyGraphServiceProvider::class,
+            LaravelDataServiceProvider::class,
         ];
     }
 
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
+        config()->set('database.connections.testing', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
+    }
 
-        /*
-         foreach (\Illuminate\Support\Facades\File::allFiles(__DIR__ . '/../database/migrations') as $migration) {
-            (include $migration->getRealPath())->up();
-         }
-         */
+    protected function defineDatabaseMigrations(): void
+    {
+        $this->loadMigrationsFrom(__DIR__.'/../workbench/database/migrations');
     }
 }
