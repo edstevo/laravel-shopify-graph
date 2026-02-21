@@ -2,6 +2,7 @@
 
 namespace EdStevo\LaravelShopifyGraph\Dtos;
 
+use EdStevo\LaravelShopifyGraph\Enums\ShopifySupportedCarrier;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Optional;
 
@@ -20,7 +21,7 @@ class FulfillmentTrackingInput extends Data
     /**
      * Shipping company handling the fulfillment.
      */
-    public Optional|string $company;
+    public Optional|string|ShopifySupportedCarrier $company;
 
     /**
      * A list of tracking numbers.

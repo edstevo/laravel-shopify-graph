@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-shopify-graph` will be documented in this file.
 
+## v1.0.43 - 2026-02-21
+
+### Added
+
+- Added `ShopifySupportedCarrier` enum with Shopify-supported tracking carrier labels.
+
+### Changed
+
+- Updated `FulfillmentTrackingInput::$company` to accept `ShopifySupportedCarrier` in addition to raw strings.
+
+**Full Changelog**: https://github.com/edstevo/laravel-shopify-graph/compare/v1.0.42...v1.0.43
+
 ## v1.0.42 - 2026-02-19
 
 ### Added
