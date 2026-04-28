@@ -9,7 +9,7 @@ use Workbench\App\Models\File;
 /**
  * @template TModel of \Workbench\App\Models\File
  *
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<TModel>
+ * @extends Factory<TModel>
  */
 class FileFactory extends Factory
 {

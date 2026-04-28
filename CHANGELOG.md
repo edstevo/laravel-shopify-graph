@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-shopify-graph` will be documented in this file.
 
+## v1.0.44 - 2026-04-28
+
+### Changed
+
+- Added Laravel 13 compatibility while retaining Laravel 12 support.
+- Updated package test tooling constraints for Laravel 13/Testbench 11.
+- Expanded the GitHub Actions test matrix to cover Laravel 13, 12, and 11 on PHP 8.3 and 8.4.
+
+**Full Changelog**: https://github.com/edstevo/laravel-shopify-graph/compare/v1.0.43...v1.0.44
+
 ## v1.0.43 - 2026-02-21
 
 ### Added

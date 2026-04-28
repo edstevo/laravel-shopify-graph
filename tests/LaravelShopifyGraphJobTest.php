@@ -1,24 +1,28 @@
 <?php
 
+use Illuminate\Support\Str;
+use Workbench\App\Jobs\TestRequestJob;
+use Workbench\App\Models\File;
+
 it('should dispatch ok', function () {
     config()->set('shopify-graph.enabled', 'true');
-    \Illuminate\Support\Facades\Bus::fake();
+    Illuminate\Support\Facades\Bus::fake();
 
     $shopDomain = fake()->word.'.myshopify.com';
-    $accessToken = \Illuminate\Support\Str::random();
-    $file = \Workbench\App\Models\File::factory()->create();
-    \Workbench\App\Jobs\TestRequestJob::dispatch($file, $shopDomain, $accessToken);
+    $accessToken = Str::random();
+    $file = File::factory()->create();
+    TestRequestJob::dispatch($file, $shopDomain, $accessToken);
 
-    Bus::assertDispatched(\Workbench\App\Jobs\TestRequestJob::class);
+    Bus::assertDispatched(TestRequestJob::class);
 });
 
 it('should request ok', function () {
     config()->set('shopify-graph.enabled', 'true');
     $shopDomain = fake()->word.'.myshopify.com';
-    $accessToken = \Illuminate\Support\Str::random();
-    $shopifyId = \Illuminate\Support\Str::random();
+    $accessToken = Str::random();
+    $shopifyId = Str::random();
 
-    \Illuminate\Support\Facades\Http::fake([
+    Illuminate\Support\Facades\Http::fake([
         $shopDomain.'/*' => Http::response(['data' => [
             'fileCreate' => [
                 'files' => [
@@ -38,8 +42,8 @@ it('should request ok', function () {
         ]], 200),
     ]);
 
-    $file = \Workbench\App\Models\File::factory()->create();
-    $job = new \Workbench\App\Jobs\TestRequestJob($file, $shopDomain, $accessToken);
+    $file = File::factory()->create();
+    $job = new TestRequestJob($file, $shopDomain, $accessToken);
     $job->handle();
 
     Http::assertSentCount(1);

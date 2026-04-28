@@ -9,6 +9,7 @@ use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServerErrorException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServiceUnavailableException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyUnauthorizedException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyValidationException;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
@@ -27,7 +28,7 @@ class LaravelShopifyGraphConnection
     /**
      * Send a GraphQL query to Shopify
      *
-     * @throws \Illuminate\Http\Client\ConnectionException
+     * @throws ConnectionException
      */
     public function post(string $shopUrl, string $accessToken, string $query, array $variables = []): array
     {

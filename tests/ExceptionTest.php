@@ -1,23 +1,27 @@
 <?php
 
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyException;
+use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyForbiddenException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyRateLimitExceededException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServerErrorException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyServiceUnavailableException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyUnauthorizedException;
 use EdStevo\LaravelShopifyGraph\Exceptions\ShopifyValidationException;
+use EdStevo\LaravelShopifyGraph\LaravelShopifyGraphConnection;
+use Illuminate\Support\Str;
 
 beforeEach(function () {
-    \Illuminate\Support\Facades\Http::preventStrayRequests();
+    Illuminate\Support\Facades\Http::preventStrayRequests();
 
     $this->shopDomain = fake()->word.'.myshopify.com';
-    $this->accessToken = \Illuminate\Support\Str::random();
+    $this->accessToken = Str::random();
 
-    $this->client = app(\EdStevo\LaravelShopifyGraph\LaravelShopifyGraphConnection::class);
+    $this->client = app(LaravelShopifyGraphConnection::class);
 
 });
 
 it('should throw ShopifyUnauthorizedException on 401', function () {
-    \Illuminate\Support\Facades\Http::fake([
+    Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response(['errors' => []], 401),
     ]);
 
@@ -25,15 +29,15 @@ it('should throw ShopifyUnauthorizedException on 401', function () {
 });
 
 it('should throw ShopifyForbiddenException on 403', function () {
-    \Illuminate\Support\Facades\Http::fake([
+    Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response(['errors' => []], 403),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyForbiddenException::class);
+    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyForbiddenException::class);
 });
 
 it('should throw ShopifyRateLimitExceededException on 429', function () {
-    \Illuminate\Support\Facades\Http::fake([
+    Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response(['errors' => []], 429),
     ]);
 
@@ -41,7 +45,7 @@ it('should throw ShopifyRateLimitExceededException on 429', function () {
 });
 
 it('should throw ShopifyRateLimitExceededException when MAX_COST_EXCEEDED', function () {
-    \Illuminate\Support\Facades\Http::fake([
+    Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response([
             'errors' => [
                 [
@@ -68,7 +72,7 @@ See https://shopify.dev/tutorials/perform-bulk-operations-with-admin-api for usa
 });
 
 it('should throw ShopifyServiceUnavailableException on 503', function () {
-    \Illuminate\Support\Facades\Http::fake([
+    Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response(['errors' => []], 503),
     ]);
 
@@ -76,7 +80,7 @@ it('should throw ShopifyServiceUnavailableException on 503', function () {
 });
 
 it('should throw ShopifyServiceUnavailableException on 504', function () {
-    \Illuminate\Support\Facades\Http::fake([
+    Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response(['errors' => []], 504),
     ]);
 
@@ -84,7 +88,7 @@ it('should throw ShopifyServiceUnavailableException on 504', function () {
 });
 
 it('should throw ShopifyValidationException on 422', function () {
-    \Illuminate\Support\Facades\Http::fake([
+    Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response(['errors' => []], 422),
     ]);
 
@@ -92,7 +96,7 @@ it('should throw ShopifyValidationException on 422', function () {
 });
 
 it('should throw ShopifyServerErrorException on 500', function () {
-    \Illuminate\Support\Facades\Http::fake([
+    Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response(['errors' => []], 500),
     ]);
 
@@ -100,7 +104,7 @@ it('should throw ShopifyServerErrorException on 500', function () {
 });
 
 it('should throw ShopifyForbiddenException when ACCESS_DENIED', function () {
-    \Illuminate\Support\Facades\Http::fake([
+    Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response([
             'errors' => [
                 [
@@ -115,11 +119,11 @@ Request ID: 1b355a21-7117-44c5-8d8b-8948082f40a8 (include this in support reques
         ], 200),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyForbiddenException::class);
+    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyForbiddenException::class);
 });
 
 it('should throw ShopifyServerErrorException when INTERNAL_SERVER_ERROR', function () {
-    \Illuminate\Support\Facades\Http::fake([
+    Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response([
             'errors' => [
                 [
@@ -138,25 +142,25 @@ Request ID: 1b355a21-7117-44c5-8d8b-8948082f40a8 (include this in support reques
 });
 
 it('should throw ShopifyException when unknown error', function () {
-    \Illuminate\Support\Facades\Http::fake([
+    Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response([
             'errors' => [
                 [
                     'message' => 'Internal error. Looks like something went wrong on our end.
 Request ID: 1b355a21-7117-44c5-8d8b-8948082f40a8 (include this in support requests).',
                     'extensions' => [
-                        'code' => \Illuminate\Support\Str::random(),
+                        'code' => Str::random(),
                     ],
                 ],
             ],
         ], 200),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyException::class);
+    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyException::class);
 });
 
 it('should throw ShopifyException when no code present', function () {
-    \Illuminate\Support\Facades\Http::fake([
+    Illuminate\Support\Facades\Http::fake([
         $this->shopDomain.'/*' => Http::response([
             'errors' => [
                 [
@@ -167,7 +171,7 @@ it('should throw ShopifyException when no code present', function () {
         ], 200),
     ]);
 
-    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(\EdStevo\LaravelShopifyGraph\Exceptions\ShopifyException::class);
+    expect(fn () => $this->client->post($this->shopDomain, $this->accessToken, 'query { shop { name } }'))->toThrow(ShopifyException::class);
 });
 
 it('should throw ShopifyValidationException when there is a userError', function () {

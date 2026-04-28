@@ -2,15 +2,16 @@
 
 namespace EdStevo\LaravelShopifyGraph\Facades;
 
+use EdStevo\LaravelShopifyGraph\LaravelShopifyGraphConnection;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \EdStevo\LaravelShopifyGraph\LaravelShopifyGraphConnection
+ * @see LaravelShopifyGraphConnection
  */
 class LaravelShopifyGraph extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \EdStevo\LaravelShopifyGraph\LaravelShopifyGraphConnection::class;
+        return LaravelShopifyGraphConnection::class;
     }
 }
